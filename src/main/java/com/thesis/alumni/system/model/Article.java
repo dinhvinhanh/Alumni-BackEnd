@@ -1,6 +1,7 @@
 package com.thesis.alumni.system.model;
 
 
+import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -8,23 +9,18 @@ import javax.persistence.EntityListeners;
 
 @Entity
 @Table(name = "articles")
-@EntityListeners(AuditingEntityListener.class)
+@Data
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Article(){};
-
-    public Article(String title){
-        super();
-    }
-
     @Column(name = "author_id")
     private Long authorId;
 
-    @Column(name = "category_id")
-    private Long categoryId;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @Column(name = "title")
     private String title;

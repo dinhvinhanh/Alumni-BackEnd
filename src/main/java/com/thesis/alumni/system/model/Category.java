@@ -1,19 +1,27 @@
 package com.thesis.alumni.system.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
-@Table(name = "categories")
-@EntityListeners(AuditingEntityListener.class)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
     private String name;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private Collection<Article> articles;
 
     public void setId(Long id) {
         this.id = id;
