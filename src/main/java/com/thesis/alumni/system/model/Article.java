@@ -16,12 +16,15 @@ public class Article {
 
     public Article(){};
 
-    public Article(String name){
+    public Article(String title){
         super();
     }
 
-    @Column(name = "author")
-    private String author;
+    @Column(name = "author_id")
+    private Long authorId;
+
+    @Column(name = "category_id")
+    private Long categoryId;
 
     @Column(name = "title")
     private String title;
@@ -29,14 +32,16 @@ public class Article {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "published_ad")
-    private String publishedAt;
+    @Column(name = "thumbnail")
+    private String thumbnail;
 
-    @Column(name = "url_to_image")
+    @Column(name = "created_ad")
+    private String createdAt;
+
+    @Column(name = "updated_ad")
+    private String updatedAt;
+
     private String urlToImage;
-
-
-
 
     public Long getId() {
         return id;
