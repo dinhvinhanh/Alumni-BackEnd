@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import java.util.Date;
 
 @Entity
 @Table(name = "articles")
@@ -35,10 +36,10 @@ public class Article {
     private String thumbnail;
 
     @Column(name = "created_ad")
-    private String createdAt;
+    private Date createdAt;
 
     @Column(name = "updated_ad")
-    private String updatedAt;
+    private Date updatedAt;
 
     @Column(name = "slug")
     private String slug;

@@ -14,6 +14,7 @@ import java.util.Date;
 public class GlobalHandleException {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> globalException(Exception ex) {
+        ex.printStackTrace();
         log.error(ex.getMessage());
         return new ResponseEntity<>(
                 BaseResponse

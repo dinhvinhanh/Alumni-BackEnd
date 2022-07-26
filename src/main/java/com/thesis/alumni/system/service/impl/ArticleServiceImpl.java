@@ -4,8 +4,12 @@ import com.thesis.alumni.system.model.Article;
 import com.thesis.alumni.system.repository.ArticleRepository;
 import com.thesis.alumni.system.service.ArticleService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -25,5 +29,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article saveArticle(Article article) {
         return articleRepository.save(article);
+    }
+
+    @Override
+    public List<Article> findArticlesByTitle(String title, Integer page, Integer limit) {
+        Pageable pageable = PageRequest.of(page - 1, limit, Sort.by("updatedAt").descending());
+        return articleRepository.findArticlesByTitleContainsIgnoreCase(title, pageable);
     }
 }
