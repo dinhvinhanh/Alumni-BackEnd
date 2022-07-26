@@ -3,6 +3,7 @@ package com.thesis.alumni.system.service.impl;
 import com.thesis.alumni.system.repository.UserRepository;
 import com.thesis.alumni.system.service.UserService;
 import com.thesis.alumni.system.model.User;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,15 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
-
-    @Autowired
     private final UserRepository userRepository;
-
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @Override
     public List<User> findAll() {
         return userRepository.findAll();

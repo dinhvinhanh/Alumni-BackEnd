@@ -5,6 +5,7 @@ package com.thesis.alumni.system.controller;
 import com.thesis.alumni.system.model.Article;
 import com.thesis.alumni.system.model.User;
 import com.thesis.alumni.system.service.ArticleService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,17 +13,22 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api")
+@RequestMapping("/api/articles")
+@AllArgsConstructor
 public class ArticleController {
-    @Autowired
-    private ArticleService articleService;
+    private final ArticleService articleService;
 
-    @GetMapping("/article")
+    @GetMapping
     public List<Article> findAll(){
         return articleService.findAll();
     };
 
-    @PostMapping("/article")
+    @GetMapping("/{slug}")
+    public Article getArticle(@PathVariable String slug) {
+        return articleService.findBySlug(slug);
+    }
+
+    @PostMapping
     public Article createArticle(@RequestBody Article article) {
         return articleService.saveArticle(article);
     }

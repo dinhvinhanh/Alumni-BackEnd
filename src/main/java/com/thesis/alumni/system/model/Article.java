@@ -25,6 +25,7 @@ public class Article {
     @Column(name = "title")
     private String title;
 
+    @Lob
     @Column(name = "content")
     private String content;
 
@@ -37,16 +38,7 @@ public class Article {
     @Column(name = "updated_ad")
     private String updatedAt;
 
-    private String urlToImage;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
+    @Column(name = "slug")
+    private String slug;
 }
 

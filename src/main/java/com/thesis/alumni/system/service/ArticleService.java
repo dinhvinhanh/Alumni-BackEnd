@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface ArticleService{
     List<Article> findAll();
+    Article findBySlug(String slug);
 
     Article saveArticle(Article article);
 }

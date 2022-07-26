@@ -19,15 +19,8 @@ public class Category {
 
     private Long id;
     private String name;
+    private String slug;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private Collection<Article> articles;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 }
