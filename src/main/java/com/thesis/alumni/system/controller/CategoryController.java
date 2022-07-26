@@ -1,7 +1,7 @@
 package com.thesis.alumni.system.controller;
 
 import com.thesis.alumni.system.dto.BaseResponse;
-import com.thesis.alumni.system.model.Category;
+import com.thesis.alumni.system.entity.Category;
 import com.thesis.alumni.system.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

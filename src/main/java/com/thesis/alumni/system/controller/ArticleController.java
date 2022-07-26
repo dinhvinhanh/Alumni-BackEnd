@@ -3,16 +3,13 @@ package com.thesis.alumni.system.controller;
 
 
 import com.thesis.alumni.system.dto.BaseResponse;
-import com.thesis.alumni.system.model.Article;
-import com.thesis.alumni.system.model.User;
+import com.thesis.alumni.system.entity.Article;
 import com.thesis.alumni.system.service.ArticleService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 

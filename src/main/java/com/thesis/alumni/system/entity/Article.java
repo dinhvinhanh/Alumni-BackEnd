@@ -1,12 +1,11 @@
-package com.thesis.alumni.system.model;
+package com.thesis.alumni.system.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import java.util.Date;
 
 @Entity

@@ -1,6 +1,6 @@
 package com.thesis.alumni.system.service.impl;
 
-import com.thesis.alumni.system.model.Article;
+import com.thesis.alumni.system.entity.Article;
 import com.thesis.alumni.system.repository.ArticleRepository;
 import com.thesis.alumni.system.service.ArticleService;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service

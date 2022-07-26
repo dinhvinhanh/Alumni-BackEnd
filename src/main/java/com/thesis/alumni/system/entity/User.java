@@ -1,4 +1,4 @@
-package com.thesis.alumni.system.model;
+package com.thesis.alumni.system.entity;
 
 
 import lombok.Data;
@@ -15,30 +15,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    public User(){};
-
-    public User(String name){
-        super();
-        this.name = name;
-    }
-
     @Column(name = "name")
     private String name;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    @Column(name = "email")
+    private String email;
 }

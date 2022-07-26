@@ -1,6 +1,6 @@
 package com.thesis.alumni.system.service.impl;
 
-import com.thesis.alumni.system.model.Category;
+import com.thesis.alumni.system.entity.Category;
 import com.thesis.alumni.system.repository.CategoryRepository;
 import com.thesis.alumni.system.service.CategoryService;
 import lombok.AllArgsConstructor;

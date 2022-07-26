@@ -2,9 +2,8 @@ package com.thesis.alumni.system.service.impl;
 
 import com.thesis.alumni.system.repository.UserRepository;
 import com.thesis.alumni.system.service.UserService;
-import com.thesis.alumni.system.model.User;
+import com.thesis.alumni.system.entity.User;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
