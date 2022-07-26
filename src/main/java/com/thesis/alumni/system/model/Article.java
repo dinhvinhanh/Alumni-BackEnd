@@ -1,6 +1,7 @@
 package com.thesis.alumni.system.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Article {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties("articles")
     private Category category;
 
     @Column(name = "title")

@@ -2,13 +2,17 @@ package com.thesis.alumni.system.controller;
 
 
 
+import com.thesis.alumni.system.dto.BaseResponse;
 import com.thesis.alumni.system.model.Article;
 import com.thesis.alumni.system.model.User;
 import com.thesis.alumni.system.service.ArticleService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -24,8 +28,18 @@ public class ArticleController {
     };
 
     @GetMapping("/{slug}")
-    public Article getArticle(@PathVariable String slug) {
-        return articleService.findBySlug(slug);
+    public ResponseEntity getArticle(@PathVariable String slug) throws Exception {
+        Article article = articleService.findBySlug(slug);
+        if (article == null)
+            throw new Exception("Không tồn tại bài viết này");
+        return new ResponseEntity<>(
+                BaseResponse
+                    .builder()
+                    .message("OK")
+                    .status(200)
+                    .data(article)
+                    .timestamp(new Date())
+                .build(), HttpStatus.OK);
     }
 
     @PostMapping
