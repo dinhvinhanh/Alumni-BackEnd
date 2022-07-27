@@ -2,15 +2,22 @@ package com.thesis.alumni.system.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
 @Table(name = "articles")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +26,7 @@ public class Article {
     @Column(name = "author_id")
     private Long authorId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id")
     @JsonIgnoreProperties("articles")
     private Category category;
@@ -34,13 +41,15 @@ public class Article {
     @Column(name = "thumbnail")
     private String thumbnail;
 
-    @Column(name = "created_ad")
-    private Date createdAt;
-
-    @Column(name = "updated_ad")
-    private Date updatedAt;
-
     @Column(name = "slug")
     private String slug;
+
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "update_at")
+    private Date updateAt;
 }
 

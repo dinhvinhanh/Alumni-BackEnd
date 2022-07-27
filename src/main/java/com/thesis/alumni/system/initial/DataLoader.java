@@ -1,16 +1,19 @@
 package com.thesis.alumni.system.initial;
 
+import com.thesis.alumni.system.entity.Article;
+import com.thesis.alumni.system.entity.Category;
 import com.thesis.alumni.system.entity.Role;
 import com.thesis.alumni.system.entity.User;
+import com.thesis.alumni.system.repository.ArticleRepository;
+import com.thesis.alumni.system.repository.CategoryRepository;
 import com.thesis.alumni.system.repository.RoleRepository;
 import com.thesis.alumni.system.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Array;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -19,7 +22,14 @@ public class DataLoader implements ApplicationRunner {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final CategoryRepository categoryRepository;
+    private final ArticleRepository articleRepository;
     public void run(ApplicationArguments args) {
+        initUser();
+        intArticle();
+    }
+
+    private void initUser() {
         Role roleAdmin = new Role("ROLE_ADMIN");
         Role roleUser = new Role("ROLE_USER");
         if (roleRepository.findRoleByName("ROLE_ADMIN") == null) {
@@ -30,7 +40,25 @@ public class DataLoader implements ApplicationRunner {
         }
 
         List<Role> roles = List.of(roleAdmin, roleUser);
-        if (userRepository.findUserByEmail("nguyenhuuvuno1@gmail.com") == null)
-            userRepository.save(new User("Nguyen VU", "nguyenhuuvuno1@gmail.com", "1100", true, roles));
+        if (userRepository.findUserByEmail("admin@gmail.com") == null)
+            userRepository.save(new User("Nguyen VU", "admin@gmail.com", "$2a$12$bCKqq2nbSEtXzf1GnfLNGuH9RO7i6lSZxJVi7h0Pz5vC04Vt9HYTS", true, roles));
+    }
+
+    private void intArticle() {
+        Category category1 = Category.builder().name("Tin tức - Sự kiện").slug("tin-tuc-su-kien").build();
+        Category category2 = Category.builder().name("Gương mặt cựu sinh viên").slug("guong-mat-cuu-sinh-vien").build();
+        if (categoryRepository.findCategoryBySlug("tin-tuc-su-kien") == null)
+            category1 = categoryRepository.save(category1);
+        if (categoryRepository.findCategoryBySlug("guong-mat-cuu-sinh-vien") == null)
+            category2 = categoryRepository.save(category2);
+        if (articleRepository.findArticleBySlug("bai-viet-test") == null) {
+            Article article = Article.builder().content("<div>day la content")
+                    .title("day la title")
+                    .thumbnail("https://thietkewebhcm.com.vn/an-featured-image-trong-bai-viet-wordpress/imager_8383.jpg")
+                    .category(category1)
+                    .slug("bai-viet-test")
+                    .build();
+            articleRepository.save(article);
+        }
     }
 }

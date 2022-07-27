@@ -104,8 +104,8 @@ public class JwtTokenUtil implements Serializable {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), "", new ArrayList<>());
+        User principal = new User(claims.getSubject(), "", authorities);
 
-        return new UsernamePasswordAuthenticationToken(principal, token, new ArrayList<>());
+        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 }

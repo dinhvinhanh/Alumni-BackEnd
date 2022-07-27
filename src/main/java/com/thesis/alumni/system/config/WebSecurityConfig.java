@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -47,10 +48,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/admin/*").hasAnyRole("ROLE_ADMIN")
-//                .antMatchers("/static/**", "/css/**").permitAll()
-                .anyRequest()
-                .permitAll()
+                .antMatchers(HttpMethod.POST, "/api/admin/users/*").hasAnyAuthority("ROLE_ADMIN")                .antMatchers(HttpMethod.PATCH, "/admin/*").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers(HttpMethod.PATCH, "/api/admin/*").hasAnyAuthority("ROLE_USER")
+                .anyRequest().permitAll()
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
@@ -66,11 +66,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 antMatchers(
                         "/resources/**",
                         "/swagger-ui/**", "/v3/api-docs/**", "/list-api",
-                        "/api/v1/accounts",
-                        "/api/v1/accounts/authenticate",
-                        "/api/v1/accounts/verification",
-                        "/api/v1/accounts/verification/resend-code",
-                        "/api/v1/test",
+                        "/api/accounts",
+                        "/api/accounts/authenticate",
+                        "/api/accounts/verification",
+                        "/api/accounts/verification/resend-code",
+                        "/api/test",
                         "/login",
                         "/webjars/**",
                         "/ws/**",
