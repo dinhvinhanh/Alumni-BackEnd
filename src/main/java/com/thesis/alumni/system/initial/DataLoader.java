@@ -26,7 +26,7 @@ public class DataLoader implements ApplicationRunner {
     private final ArticleRepository articleRepository;
     public void run(ApplicationArguments args) {
         initUser();
-        intArticle();
+//        intArticle();
     }
 
     private void initUser() {

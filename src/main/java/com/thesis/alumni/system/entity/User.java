@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -41,6 +42,19 @@ public class User {
 
     @Column(name = "job")
     private String job;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "birth_place")
+    private String birthPlace;
+
+    @Column(name = "data_of_birth")
+    private Date dateOfBirth;
+
+    @Column(name = "class_name")
+    private Date className;
+
 
     @Column(name = "salaryRange")
     private Float salaryRange;
