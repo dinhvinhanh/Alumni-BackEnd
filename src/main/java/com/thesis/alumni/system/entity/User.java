@@ -2,6 +2,7 @@ package com.thesis.alumni.system.entity;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,6 +16,7 @@ import java.util.List;
 @Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -53,11 +55,14 @@ public class User {
     private Date dateOfBirth;
 
     @Column(name = "class_name")
-    private Date className;
+    private String className;
 
 
     @Column(name = "salaryRange")
-    private Float salaryRange;
+    private String salaryRange;
+
+    @Column(name = "status")
+    private String status;
 
     @ManyToMany(cascade=CascadeType.MERGE)
     private List<Role> roles;
