@@ -8,5 +8,5 @@ import javax.mail.MessagingException;
 
 public interface MailService {
     void sendMail(Mail mail) throws MessagingException;
-    Mail createMailActiveAccount(User user, String timeExpire);
+    Mail createMailActiveAccount(String email, String token);
 }

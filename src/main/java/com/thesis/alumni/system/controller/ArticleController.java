@@ -4,12 +4,17 @@ package com.thesis.alumni.system.controller;
 
 import com.thesis.alumni.system.dto.BaseResponse;
 import com.thesis.alumni.system.entity.Article;
+import com.thesis.alumni.system.enums.ArticleType;
 import com.thesis.alumni.system.service.ArticleService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +26,12 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping
-    public List<Article> findAll(){
+    public List<Article> find(@RequestParam(defaultValue = "APPROVED", name = "status") ArticleType articleType) throws AccessDeniedException {
+        if (articleType == ArticleType.PENDING || articleType == ArticleType.HIDDEN) {
+            Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+            if (authorities.contains("ROLE_ANONYMOUS"))
+                throw new AccessDeniedException("Bạn không có quyền");
+        }
         return articleService.findAll();
     };
 
@@ -59,6 +69,7 @@ public class ArticleController {
 
     @PostMapping
     public Article createArticle(@RequestBody Article article) {
+        article.setStatus(ArticleType.PENDING);
         return articleService.saveArticle(article);
     }
 

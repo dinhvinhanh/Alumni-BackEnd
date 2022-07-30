@@ -2,6 +2,7 @@ package com.thesis.alumni.system.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.thesis.alumni.system.enums.ArticleType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,8 +24,10 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "author_id")
-    private Long authorId;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("articles")
+    private User user;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id")
@@ -40,6 +43,10 @@ public class Article {
 
     @Column(name = "thumbnail")
     private String thumbnail;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ArticleType status;
 
     @Column(name = "slug")
     private String slug;

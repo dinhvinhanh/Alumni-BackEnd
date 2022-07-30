@@ -1,6 +1,7 @@
 package com.thesis.alumni.system.service.impl;
 
 import com.thesis.alumni.system.entity.Article;
+import com.thesis.alumni.system.enums.ArticleType;
 import com.thesis.alumni.system.repository.ArticleRepository;
 import com.thesis.alumni.system.service.ArticleService;
 import lombok.AllArgsConstructor;
@@ -34,5 +35,11 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> findArticlesByTitle(String title, Integer page, Integer limit) {
         Pageable pageable = PageRequest.of(page - 1, limit, Sort.by("updatedAt").descending());
         return articleRepository.findArticlesByTitleContainsIgnoreCase(title, pageable);
+    }
+
+    @Override
+    public List<Article> findArticlesByStatus(ArticleType status, Integer page, Integer limit) {
+        Pageable pageable = PageRequest.of(page - 1, limit, Sort.by("updatedAt").descending());
+        return articleRepository.findArticlesByStatusIs(status, pageable);
     }
 }

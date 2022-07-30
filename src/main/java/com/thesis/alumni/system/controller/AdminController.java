@@ -17,7 +17,6 @@ public class AdminController {
     public String testAuth() {
         // dung de check quyen trong jwt
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         return "access";
     }
 }

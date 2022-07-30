@@ -18,8 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
+
     @Column(name = "name")
     private String name;
 
@@ -29,13 +29,27 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "job_history")
+    private String jobHistory;
+
+
+    @Column(name = "workplace")
+    private String workplace;
+
     @Column(name = "active")
     private Boolean active;
+
+    @Column(name = "job")
+    private String job;
+
+    @Column(name = "salaryRange")
+    private Float salaryRange;
 
     @ManyToMany(cascade=CascadeType.MERGE)
     private List<Role> roles;
 
-    public User(String name, String email, String password, Boolean active, List<Role> roles) {
+    public User(String id, String name, String email, String password, Boolean active, List<Role> roles) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;

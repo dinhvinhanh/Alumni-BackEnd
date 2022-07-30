@@ -1,16 +1,13 @@
 package com.thesis.alumni.system.utils;
 
 import com.thesis.alumni.system.entity.Role;
+import com.thesis.alumni.system.exception.UserHandleException;
 import com.thesis.alumni.system.repository.UserRepository;
-import com.thesis.alumni.system.utils.Constant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,10 +15,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -71,7 +66,8 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public String generateToken(String email) {
-        com.thesis.alumni.system.entity.User user = userRepository.findUserByEmail(email);
+        com.thesis.alumni.system.entity.User user = userRepository.findUserByEmail(email)
+                .orElseThrow();
         String authorities = user.getRoles().stream()
                 .map(Role::getName)
                 .collect(Collectors.joining(","));

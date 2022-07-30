@@ -23,7 +23,7 @@ public class Category {
     private String name;
     private String slug;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.MERGE)
     @JsonIgnoreProperties("category")
     private Collection<Article> articles;
 }

@@ -6,6 +6,7 @@ import com.thesis.alumni.system.entity.User;
 import com.thesis.alumni.system.model.Mail;
 import com.thesis.alumni.system.service.MailService;
 import com.thesis.alumni.system.service.UserService;
+import com.thesis.alumni.system.utils.JwtTokenUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -30,14 +31,14 @@ public class UserController {
     };
 
     @PostMapping("")
-    public User createUser(@RequestBody User user) throws MessagingException {
-        Mail mail = mailService.createMailActiveAccount(user, "1 gio");
+    public User createUserByAdmin(@RequestBody User user) throws MessagingException {
+        Mail mail = mailService.createMailActiveAccount("nguyenhuuvuno1@gmail.com", "1 gio");
         mailService.sendMail(mail);
         return userService.saveUser(user);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable long id){
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable String id){
 
         User user = userService.findByID(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id: " + id));
@@ -48,7 +49,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findById(@PathVariable  long id){
+    public ResponseEntity<User> findById(@PathVariable String id){
         User user = userService.findByID(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not exist with id:" + id));
         return ResponseEntity.ok(user);

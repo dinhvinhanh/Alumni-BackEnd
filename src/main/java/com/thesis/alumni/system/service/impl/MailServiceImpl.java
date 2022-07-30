@@ -24,17 +24,6 @@ public class MailServiceImpl implements MailService {
     private final SpringTemplateEngine templateEngine;
     private final Mail mail;
 
-    public Mail createMailActiveAccount(User user, String timeExpire) {
-        mail.setMailTo(user.getEmail().toLowerCase());
-        mail.setSubject("mai tao tai khoan");
-        mail.setTemplateName("active-account");
-        Map<String, Object> props = new HashMap<>();
-        props.put("link", mail.getDomain() + "/token=12345-example");
-        props.put("expire", "2 giờ");
-        mail.setProps(props);
-        return mail;
-    }
-
     @Override
     public void sendMail(Mail mail) throws MessagingException {
         MimeMessage message = emailSender.createMimeMessage();
@@ -54,5 +43,17 @@ public class MailServiceImpl implements MailService {
         new Thread(() -> {
             emailSender.send(message);
         }).start();
+    }
+
+    @Override
+    public Mail createMailActiveAccount(String email, String token) {
+        mail.setMailTo(email.toLowerCase());
+        mail.setSubject("Mail kích hoạt tài khoản");
+        mail.setTemplateName("active-account");
+        Map<String, Object> props = new HashMap<>();
+        props.put("link", mail.getDomain() + "/api/accounts/active?token=" + token);
+        props.put("expire", "2 giờ");
+        mail.setProps(props);
+        return mail;
     }
 }

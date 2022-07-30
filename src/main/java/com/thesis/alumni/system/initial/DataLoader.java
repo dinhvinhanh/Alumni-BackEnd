@@ -40,8 +40,9 @@ public class DataLoader implements ApplicationRunner {
         }
 
         List<Role> roles = List.of(roleAdmin, roleUser);
-        if (userRepository.findUserByEmail("admin@gmail.com") == null)
-            userRepository.save(new User("Nguyen VU", "admin@gmail.com", "$2a$12$bCKqq2nbSEtXzf1GnfLNGuH9RO7i6lSZxJVi7h0Pz5vC04Vt9HYTS", true, roles));
+        User user = userRepository.findUserByEmail("nguyenhuuvu.doc@gmail.com").orElse(null);
+        if (user == null)
+            userRepository.save(new User("1", "Nguyen VU", "nguyenhuuvu.doc@gmail.com", "$2a$12$bCKqq2nbSEtXzf1GnfLNGuH9RO7i6lSZxJVi7h0Pz5vC04Vt9HYTS", false, roles));
     }
 
     private void intArticle() {

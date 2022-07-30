@@ -1,5 +1,6 @@
 package com.thesis.alumni.system.service.impl;
 
+import com.thesis.alumni.system.exception.UserHandleException;
 import com.thesis.alumni.system.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,7 +22,8 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         // login with email or username
-        com.thesis.alumni.system.entity.User user = userRepository.findUserByEmail(s);
+        com.thesis.alumni.system.entity.User user = userRepository.findUserByEmail(s)
+                .orElseThrow(() -> new UserHandleException("Tài khoản này chưa được kích hoạt hoặc không tồn tại trong hệ thống!"));
         if (user == null)
             throw new UsernameNotFoundException("Login false: " + s);
         List<GrantedAuthority> granted =  user.getRoles().stream()
