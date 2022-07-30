@@ -8,6 +8,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.naming.AuthenticationException;
 import java.nio.file.AccessDeniedException;
 import java.util.Date;
 
@@ -32,6 +33,19 @@ public class GlobalHandleException {
 
     @ExceptionHandler(JwtTokenException.class)
     public ResponseEntity<?> jwtTokenException(JwtTokenException ex) {
+        return new ResponseEntity<>(
+                BaseResponse
+                        .builder()
+                        .message(ex.getMessage())
+                        .status(500)
+                        .data(null)
+                        .timestamp(new Date())
+                        .build(),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<?> jwtTokenException(AuthenticationException ex) {
         return new ResponseEntity<>(
                 BaseResponse
                         .builder()

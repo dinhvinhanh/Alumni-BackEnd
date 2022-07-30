@@ -2,7 +2,6 @@ package com.thesis.alumni.system.service.impl;
 
 import com.thesis.alumni.system.dto.UserDto;
 import com.thesis.alumni.system.entity.User;
-import com.thesis.alumni.system.exception.JwtTokenException;
 import com.thesis.alumni.system.exception.UserHandleException;
 import com.thesis.alumni.system.model.Mail;
 import com.thesis.alumni.system.repository.UserRepository;
@@ -10,11 +9,13 @@ import com.thesis.alumni.system.service.MailService;
 import com.thesis.alumni.system.service.UserService;
 import com.thesis.alumni.system.utils.JwtTokenUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -25,8 +26,9 @@ public class UserServiceImpl implements UserService {
     private final JwtTokenUtil jwtTokenUtil;
 
     @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public Page<User> findAll(Integer page, Integer limit) {
+        Pageable pageable = PageRequest.of(page, limit, Sort.by("name").ascending());
+        return userRepository.findAll(pageable);
     }
 
     @Override
@@ -63,6 +65,16 @@ public class UserServiceImpl implements UserService {
             throw new UserHandleException("Đường link đã hết hạn hoặc không hợp lệ");
         user.setActive(true);
         userRepository.save(user);
+    }
+
+    @Override
+    public Map<String, Integer> statisticStatus(String[] status) {
+        Map<String, Integer> result = new HashMap<>();
+        for (String s: status) {
+            Integer count = userRepository.countUserByStatus(s);
+            result.put(s, count);
+        }
+        return result;
     }
 
 }

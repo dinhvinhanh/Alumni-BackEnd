@@ -2,6 +2,7 @@ package com.thesis.alumni.system.controller;
 
 
 
+import com.thesis.alumni.system.dto.BaseResponse;
 import com.thesis.alumni.system.entity.User;
 import com.thesis.alumni.system.model.Mail;
 import com.thesis.alumni.system.service.MailService;
@@ -9,12 +10,14 @@ import com.thesis.alumni.system.service.UserService;
 import com.thesis.alumni.system.utils.JwtTokenUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -26,8 +29,19 @@ public class UserController {
     private final MailService mailService;
 
     @GetMapping("")
-    public List<User> findAll(){
-        return userService.findAll();
+    public ResponseEntity<?> findAll(
+                @RequestParam(defaultValue = "0") Integer page,
+                @RequestParam(defaultValue = "20") Integer limit
+            ){
+        Page<User> result = userService.findAll(page, limit);
+        return new ResponseEntity<>(
+                BaseResponse
+                        .builder()
+                        .message("OK")
+                        .status(200)
+                        .data(result)
+                        .timestamp(new Date())
+                        .build(), HttpStatus.OK);
     };
 
     @PostMapping("")

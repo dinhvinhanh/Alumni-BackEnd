@@ -42,7 +42,7 @@ public class JwtAuthenticationController {
         try {
             authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         } catch (DisabledException e) {
-            throw new UserHandleException("This account is not activated!", HttpStatus.FORBIDDEN);
+            throw new UserHandleException("Tài khoản này chưa được kích hoạt!", HttpStatus.FORBIDDEN);
         }
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

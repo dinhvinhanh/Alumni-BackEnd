@@ -29,6 +29,7 @@ public class CsvUtil {
             for (CSVRecord csvRecord : csvRecords) {
                 User user = User.builder()
                         .id(csvRecord.get("id"))
+                        .name(csvRecord.get("name"))
                         .email(csvRecord.get("id") + "@vnu.edu.vn")
                         .gender(csvRecord.get("gender"))
                         .dateOfBirth(new Date(csvRecord.get("date_of_birth")))
