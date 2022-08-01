@@ -17,9 +17,22 @@ import java.util.Map;
 public class StatisticController {
     private final UserService userService;
 
-    @GetMapping("/alumni")
-    public ResponseEntity<?> countAlumniStatus(@RequestParam String[] status) {
-        Map<String, Integer> result = userService.statisticStatus(status);
+    @GetMapping("/alumni/status")
+    public ResponseEntity<?> countAlumniStatus() {
+        Map<String, Integer> result = userService.statisticStatus();
+        return new ResponseEntity<>(
+                BaseResponse
+                        .builder()
+                        .message("OK")
+                        .status(200)
+                        .data(result)
+                        .timestamp(new Date())
+                        .build(), HttpStatus.OK);
+    }
+
+    @GetMapping("/alumni/salary")
+    public ResponseEntity<?> countAlumniSalaryRange() {
+        Map<String, Integer> result = userService.statisticSalaryRange();
         return new ResponseEntity<>(
                 BaseResponse
                         .builder()

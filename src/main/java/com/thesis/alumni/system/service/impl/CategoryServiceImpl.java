@@ -6,6 +6,8 @@ import com.thesis.alumni.system.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
@@ -14,5 +16,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category findCategory(String slug) {
         return categoryRepository.findCategoryBySlug(slug);
+    }
+
+    @Override
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
     }
 }

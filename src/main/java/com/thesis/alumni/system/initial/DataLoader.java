@@ -26,7 +26,7 @@ public class DataLoader implements ApplicationRunner {
     private final ArticleRepository articleRepository;
     public void run(ApplicationArguments args) {
         initUser();
-//        intArticle();
+        intArticle();
     }
 
     private void initUser() {
@@ -42,16 +42,22 @@ public class DataLoader implements ApplicationRunner {
         List<Role> roles = List.of(roleAdmin, roleUser);
         User user = userRepository.findUserByEmail("nguyenhuuvu.doc@gmail.com").orElse(null);
         if (user == null)
-            userRepository.save(new User("1", "Nguyen VU", "nguyenhuuvu.doc@gmail.com", "$2a$12$bCKqq2nbSEtXzf1GnfLNGuH9RO7i6lSZxJVi7h0Pz5vC04Vt9HYTS", true, roles));
+            userRepository.save(new User("1", "Nguyen VU", "nguyenhuuvu.doc@gmail.com", "$2a$12$bCKqq2nbSEtXzf1GnfLNGuH9RO7i6lSZxJVi7h0Pz5vC04Vt9HYTS", true, roles, "-1", "Chưa làm khảo sát"));
     }
 
     private void intArticle() {
-        Category category1 = Category.builder().name("Tin tức - Sự kiện").slug("tin-tuc-su-kien").build();
+        Category category1 = Category.builder().name("Tin tức").slug("tin-tuc").build();
         Category category2 = Category.builder().name("Gương mặt cựu sinh viên").slug("guong-mat-cuu-sinh-vien").build();
-        if (categoryRepository.findCategoryBySlug("tin-tuc-su-kien") == null)
+        Category category3 = Category.builder().name("Sự kiện").slug("su-kien").build();
+        Category category4 = Category.builder().name("Giới thiệu").slug("gioi-thieu").build();
+        if (categoryRepository.findCategoryBySlug("su-kien") == null)
+            category3 = categoryRepository.save(category3);
+        if (categoryRepository.findCategoryBySlug("tin-tuc") == null)
             category1 = categoryRepository.save(category1);
         if (categoryRepository.findCategoryBySlug("guong-mat-cuu-sinh-vien") == null)
             category2 = categoryRepository.save(category2);
+        if (categoryRepository.findCategoryBySlug("gioi-thieu") == null)
+            category4 = categoryRepository.save(category4);
         if (articleRepository.findArticleBySlug("bai-viet-test") == null) {
             Article article = Article.builder().content("<div>day la content")
                     .title("day la title")

@@ -44,6 +44,9 @@ public class Article {
     @Column(name = "thumbnail")
     private String thumbnail;
 
+    @Column(name = "location")
+    private String location;
+
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private ArticleType status;

@@ -22,5 +22,7 @@ public interface UserService{
 
     void activeAccount(String token);
 
-    Map<String, Integer> statisticStatus(String[] status);
+    Map<String, Integer> statisticStatus();
+
+    Map<String, Integer> statisticSalaryRange();
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -68,11 +69,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Integer> statisticStatus(String[] status) {
+    public Map<String, Integer> statisticStatus() {
+        List<String> status = userRepository.findAllStatus();
         Map<String, Integer> result = new HashMap<>();
         for (String s: status) {
             Integer count = userRepository.countUserByStatus(s);
             result.put(s, count);
+        }
+        return result;
+    }
+
+    @Override
+    public Map<String, Integer> statisticSalaryRange() {
+        List<String> ranges = userRepository.findAllSalaryRange();
+        Map<String, Integer> result = new HashMap<>();
+        for (String range: ranges) {
+            Integer count = userRepository.countUserBySalaryRange(range);
+            result.put(range, count);
         }
         return result;
     }

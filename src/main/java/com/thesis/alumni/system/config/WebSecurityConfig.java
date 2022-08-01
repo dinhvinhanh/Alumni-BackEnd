@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/admin/users/*").hasAnyAuthority("ROLE_ADMIN")                .antMatchers(HttpMethod.PATCH, "/admin/*").hasAnyAuthority("ROLE_ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/api/admin/*").hasAnyAuthority("ROLE_USER")
-                .antMatchers(HttpMethod.POST, "/api/files/*").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/files/upload-alumni").hasAnyAuthority("ROLE_ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .exceptionHandling()
@@ -74,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/test",
                         "/login",
                         "/webjars/**",
-                        "/ws/**",
+                        "/files/**",
                         "/css/**",
                         "/js/**",
                         "/img/**",

@@ -6,9 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +27,9 @@ public class User {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "avatar")
+    private String avatar;
 
     @Column(name = "password")
     private String password;
@@ -64,15 +66,17 @@ public class User {
     @Column(name = "status")
     private String status;
 
-    @ManyToMany(cascade=CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.MERGE)
     private List<Role> roles;
 
-    public User(String id, String name, String email, String password, Boolean active, List<Role> roles) {
+    public User(String id, String name, String email, String password, Boolean active, List<Role> roles, String salaryRange, String status) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.active = active;
         this.roles = roles;
+        this.salaryRange = salaryRange;
+        this.status = status;
     }
 }
