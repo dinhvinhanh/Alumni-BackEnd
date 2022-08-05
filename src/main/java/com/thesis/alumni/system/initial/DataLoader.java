@@ -32,17 +32,17 @@ public class DataLoader implements ApplicationRunner {
     private void initUser() {
         Role roleAdmin = new Role("ROLE_ADMIN");
         Role roleUser = new Role("ROLE_USER");
-        if (roleRepository.findRoleByName("ROLE_ADMIN") == null) {
+        if (roleRepository.findFirstByName("ROLE_ADMIN") == null) {
             roleAdmin = roleRepository.save(roleAdmin);
         }
-        if (roleRepository.findRoleByName("ROLE_USER") == null) {
+        if (roleRepository.findFirstByName("ROLE_USER") == null) {
             roleUser = roleRepository.save(roleUser);
         }
 
         List<Role> roles = List.of(roleAdmin, roleUser);
-        User user = userRepository.findUserByEmail("nguyenhuuvu.doc@gmail.com").orElse(null);
+        User user = userRepository.findUserByEmail("dinhvinhanh@gmail.com").orElse(null);
         if (user == null)
-            userRepository.save(new User("1", "Nguyen VU", "nguyenhuuvu.doc@gmail.com", "$2a$12$bCKqq2nbSEtXzf1GnfLNGuH9RO7i6lSZxJVi7h0Pz5vC04Vt9HYTS", true, roles, "-1", "Chưa làm khảo sát"));
+            userRepository.save(new User("1", "Dinh Vinh Anh", "dinhvinhanh@gmail.com", "$2a$12$bCKqq2nbSEtXzf1GnfLNGuH9RO7i6lSZxJVi7h0Pz5vC04Vt9HYTS", true, roles, "-1", "Chưa làm khảo sát"));
     }
 
     private void intArticle() {

@@ -32,7 +32,6 @@ public class MailServiceImpl implements MailService {
                 StandardCharsets.UTF_8.name());
         Context context = new Context();
         context.setVariables(mail.getProps());
-
         String html = templateEngine.process(mail.getTemplateName(), context);
 
         helper.setTo(mail.getMailTo());
@@ -51,7 +50,7 @@ public class MailServiceImpl implements MailService {
         mail.setSubject("Mail kích hoạt tài khoản");
         mail.setTemplateName("active-account");
         Map<String, Object> props = new HashMap<>();
-        props.put("link", mail.getDomain() + "/api/accounts/active?token=" + token);
+        props.put("link", mail.getDomain() + "/register?token=" + token);
         props.put("expire", "2 giờ");
         mail.setProps(props);
         return mail;

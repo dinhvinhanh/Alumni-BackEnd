@@ -2,6 +2,8 @@ package com.thesis.alumni.system.repository;
 
 
 import com.thesis.alumni.system.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -20,5 +22,6 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("select distinct salaryRange from User")
     List<String> findAllSalaryRange();
     Integer countUserBySalaryRange(String range);
+    Page<User> findUsersByNameContainingIgnoreCase(String name, Pageable pageable);
 }
 

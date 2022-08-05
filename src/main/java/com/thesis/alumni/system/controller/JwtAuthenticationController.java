@@ -19,9 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URLEncoder;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -60,17 +58,20 @@ public class JwtAuthenticationController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/active")
-    public ResponseEntity<?> activeAccount(@RequestParam(defaultValue = "") String token) throws UnsupportedEncodingException {
-        String message = "Xác nhận tài khoản thành công! Đăng nhập để tiếp tục.";
+    @PostMapping("/active")
+    public ResponseEntity<?> activeAccount(@RequestBody Map<String, String> body) {
+        String token = body.get("token");
+        String password = body.get("password");
         try {
-            userService.activeAccount(token);
+            userService.activeAccount(token, password);
         } catch (Exception exception) {
-            message = "Đường link không hợp lệ hoặc đã hết hạn! Vui lòng thử đăng ký lại.";
+            return new ResponseEntity<>(
+                    BaseResponse.builder().status(400).message(exception.getMessage()).build(),
+                    HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.status(HttpStatus.FOUND)
-                .location(URI.create("http://localhost:3000/login?message=" + URLEncoder.encode(message,"UTF-8")))
-                .build();
+        return new ResponseEntity<>(
+                BaseResponse.builder().status(200).message("OK").build(),
+                HttpStatus.OK);
     }
 
 }

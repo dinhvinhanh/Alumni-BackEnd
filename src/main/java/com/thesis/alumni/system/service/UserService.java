@@ -5,7 +5,6 @@ import com.thesis.alumni.system.entity.User;
 import org.springframework.data.domain.Page;
 
 import javax.mail.MessagingException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -20,9 +19,20 @@ public interface UserService{
     void removeUser(String id);
     void processActiveAccount(UserDto user) throws MessagingException;
 
-    void activeAccount(String token);
+    void activeAccount(String token, String password);
 
     Map<String, Integer> statisticStatus();
 
     Map<String, Integer> statisticSalaryRange();
+
+    void updateUser(UserDto user);
+    User findUserByEmail(String email);
+
+    Page<User> findUserLikeName(String name, Integer page, Integer limit);
+
+    User saveSurvey(UserDto userDto);
+
+    User updateUser(String id, UserDto userDto);
+
+    User createUser(UserDto userDto);
 }

@@ -18,6 +18,18 @@ public class UserDto {
     private String email;
     private String password;
     private String avatar;
+    private String name;
+    private String jobHistory;
+    private String workplace;
+    private Boolean active;
+    private String job;
+    private String gender;
+    private String birthPlace;
+    private String salaryRange;
+    private String status;
+    private Date dateOfBirth;
     private String className;
-    private Date birthDay;
+    private String satisfactionLevel;
+    private String language;
+    private String feedback;
 }

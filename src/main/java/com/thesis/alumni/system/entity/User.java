@@ -1,6 +1,7 @@
 package com.thesis.alumni.system.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +32,7 @@ public class User {
     @Column(name = "avatar")
     private String avatar;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
@@ -58,8 +60,6 @@ public class User {
 
     @Column(name = "class_name")
     private String className;
-
-
     @Column(name = "salaryRange")
     private String salaryRange;
 
@@ -68,6 +68,15 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Role> roles;
+
+    @Column(name = "satisfaction_level")
+    private String satisfactionLevel;
+
+    @Column(name = "language")
+    private String language;
+
+    @Column(name = "feedback")
+    private String feedback;
 
     public User(String id, String name, String email, String password, Boolean active, List<Role> roles, String salaryRange, String status) {
         this.id = id;
