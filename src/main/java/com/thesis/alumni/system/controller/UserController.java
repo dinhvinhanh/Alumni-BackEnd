@@ -8,6 +8,7 @@ import com.thesis.alumni.system.entity.User;
 import com.thesis.alumni.system.model.Mail;
 import com.thesis.alumni.system.service.MailService;
 import com.thesis.alumni.system.service.UserService;
+import com.thesis.alumni.system.utils.AuthUtil;
 import com.thesis.alumni.system.utils.JwtTokenUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -117,7 +119,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public ResponseEntity<?> getMyProfile(){
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        String email = AuthUtil.getEmail();
         User user = userService.findUserByEmail(email);
         return new ResponseEntity<>(
                 BaseResponse
@@ -125,6 +127,21 @@ public class UserController {
                         .message("OK")
                         .status(200)
                         .data(user)
+                        .timestamp(new Date())
+                        .build(), HttpStatus.OK);
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody Map<String, String> body) {
+        String oldPassword = body.get("oldPassword");
+        String newPassword = body.get("newPassword");
+        userService.changePassword(oldPassword, newPassword);
+
+        return new ResponseEntity<>(
+                BaseResponse
+                        .builder()
+                        .message("OK")
+                        .status(200)
                         .timestamp(new Date())
                         .build(), HttpStatus.OK);
     }

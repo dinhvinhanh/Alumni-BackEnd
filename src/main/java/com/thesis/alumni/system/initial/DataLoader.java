@@ -4,6 +4,7 @@ import com.thesis.alumni.system.entity.Article;
 import com.thesis.alumni.system.entity.Category;
 import com.thesis.alumni.system.entity.Role;
 import com.thesis.alumni.system.entity.User;
+import com.thesis.alumni.system.enums.ArticleType;
 import com.thesis.alumni.system.repository.ArticleRepository;
 import com.thesis.alumni.system.repository.CategoryRepository;
 import com.thesis.alumni.system.repository.RoleRepository;
@@ -40,9 +41,9 @@ public class DataLoader implements ApplicationRunner {
         }
 
         List<Role> roles = List.of(roleAdmin, roleUser);
-        User user = userRepository.findUserByEmail("dinhvinhanh@gmail.com").orElse(null);
+        User user = userRepository.findUserByEmail("18020119@vnu.edu.vn").orElse(null);
         if (user == null)
-            userRepository.save(new User("1", "Dinh Vinh Anh", "dinhvinhanh@gmail.com", "$2a$12$bCKqq2nbSEtXzf1GnfLNGuH9RO7i6lSZxJVi7h0Pz5vC04Vt9HYTS", true, roles, "-1", "Chưa làm khảo sát"));
+            userRepository.save(new User("1", "Đinh Vĩnh Anh", "dinhvinhanh@gmail.com", "$2a$12$WZztNom2KPM5C06/oj5nZOjn2WLYy.4QZajrXNoq51K65WGpm4gWK", true, roles, "-1", "Chưa làm khảo sát"));
     }
 
     private void intArticle() {
@@ -58,12 +59,13 @@ public class DataLoader implements ApplicationRunner {
             category2 = categoryRepository.save(category2);
         if (categoryRepository.findCategoryBySlug("gioi-thieu") == null)
             category4 = categoryRepository.save(category4);
-        if (articleRepository.findArticleBySlug("bai-viet-test") == null) {
+        if (articleRepository.findArticleBySlugAndStatusIs("bai-viet-test", ArticleType.PENDING) == null) {
             Article article = Article.builder().content("<div>day la content")
                     .title("day la title")
                     .thumbnail("https://thietkewebhcm.com.vn/an-featured-image-trong-bai-viet-wordpress/imager_8383.jpg")
                     .category(category1)
                     .slug("bai-viet-test")
+                    .status(ArticleType.PENDING)
                     .build();
             articleRepository.save(article);
         }

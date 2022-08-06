@@ -14,7 +14,9 @@ import java.util.List;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     Article findArticleBySlug(String slug);
-    Page<Article> findArticlesByTitleContainsIgnoreCase(String title, Pageable pageable);
+    Article findArticleBySlugAndStatusIs(String slug, ArticleType status);
+    Page<Article> findArticlesByTitleContainsIgnoreCaseAndStatusIs(String title, ArticleType status, Pageable pageable);
     Page<Article> findArticlesByStatusIn(List<ArticleType> status, Pageable pageable);
-    Page<Article> findArticlesByCategorySlug(String slug, Pageable pageable);
+    Page<Article> findArticlesByStatusInAndUser_Email(List<ArticleType> status, String email, Pageable pageable);
+    Page<Article> findArticlesByCategorySlugAndStatusIs(String slug, ArticleType status, Pageable pageable);
 }

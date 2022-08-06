@@ -9,6 +9,7 @@ import com.thesis.alumni.system.repository.RoleRepository;
 import com.thesis.alumni.system.repository.UserRepository;
 import com.thesis.alumni.system.service.MailService;
 import com.thesis.alumni.system.service.UserService;
+import com.thesis.alumni.system.utils.AuthUtil;
 import com.thesis.alumni.system.utils.JwtTokenUtil;
 import io.jsonwebtoken.lang.Strings;
 import lombok.AllArgsConstructor;
@@ -153,6 +154,16 @@ public class UserServiceImpl implements UserService {
     public User createUser(UserDto userDto) {
         User user = modelMapper.map(userDto, User.class);
         return userRepository.save(user);
+    }
+
+    @Override
+    public void changePassword(String oldPassword, String newPassword) {
+        String email = AuthUtil.getEmail();
+        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new UserHandleException("Tài khoản không tồn tại!"));
+        if (!passwordEncoder.matches(oldPassword, user.getPassword()))
+            throw new UserHandleException("Mật khẩu cũ không khớp!");
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
     }
 
 }

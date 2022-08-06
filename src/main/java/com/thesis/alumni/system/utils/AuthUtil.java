@@ -16,4 +16,8 @@ public class AuthUtil {
         });
         return check.get();
     }
+
+    public static String getEmail() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
 }

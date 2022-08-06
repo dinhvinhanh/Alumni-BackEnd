@@ -93,7 +93,7 @@ public class GlobalHandleException {
                         .data(null)
                         .timestamp(new Date())
                         .build(),
-                HttpStatus.NOT_ACCEPTABLE);
+                HttpStatus.BAD_REQUEST);
     }
 
 }

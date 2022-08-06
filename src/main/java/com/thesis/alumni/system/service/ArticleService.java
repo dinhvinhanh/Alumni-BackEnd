@@ -16,4 +16,6 @@ public interface ArticleService{
     Page<Article> findArticlesByStatus(ArticleType[] status, Integer page, Integer limit);
     Page<Article> findArticlesByCategory(String slug, Integer page, Integer limit);
     void deleteArticle(Long article);
+
+    void browseArticle(Long id);
 }

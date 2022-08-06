@@ -35,4 +35,6 @@ public interface UserService{
     User updateUser(String id, UserDto userDto);
 
     User createUser(UserDto userDto);
+
+    void changePassword(String oldPassword, String newPassword);
 }

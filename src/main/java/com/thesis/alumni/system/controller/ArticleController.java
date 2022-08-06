@@ -99,4 +99,17 @@ public class ArticleController {
                         .timestamp(new Date())
                         .build(), HttpStatus.OK);
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> browseArticle(@PathVariable Long id) {
+        articleService.browseArticle(id);
+        return new ResponseEntity<>(
+                BaseResponse
+                        .builder()
+                        .message("OK")
+                        .status(200)
+                        .data(null)
+                        .timestamp(new Date())
+                        .build(), HttpStatus.OK);
+    }
 }
