@@ -75,7 +75,7 @@ public class GlobalHandleException {
         return new ResponseEntity<>(
                 BaseResponse
                         .builder()
-                        .message(ex.getMessage())
+                        .message("Tài khoản hoặc mật khẩu sai!")
                         .status(500)
                         .data(null)
                         .timestamp(new Date())
